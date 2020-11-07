@@ -18,5 +18,5 @@ stop() {
 	config_load lingti
 	local enabled
 	config_get_bool enabled lingti enabled
-	kill -9 `pgrep -f "/var/bin/lingti"` 2>/dev/null
+	kill -9 `pgrep -f "/usr/bin/lingti/lingti"` 2>/dev/null
 }
