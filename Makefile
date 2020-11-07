@@ -7,15 +7,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-LingTiGameAcc
-PKG_VERSION:=20200726
-PKG_RELEASE:=1
+PKG_VERSION:=20201108
+PKG_RELEASE:=2
 PKG_MAINTAINER:=eSir Playground <https://github.com/esirplayground/luci-app-LingTiGameAcc>
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/$(PKG_NAME)
-	CATEGORY:=eSir Playground
-	SUBMENU:=2. GameAcc
+	SECTION:=luci
+	CATEGORY:=LuCI
+	SUBMENU:=3. Applications
 	TITLE:=LuCI support for LingTiGameAcc
 	PKGARCH:=all
 	DEPENDS:=+LingTiGameAcc
