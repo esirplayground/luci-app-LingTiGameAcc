@@ -19,7 +19,7 @@ define Package/$(PKG_NAME)
 	SUBMENU:=3. Applications
 	TITLE:=LuCI support for LingTiGameAcc
 	PKGARCH:=all
-	DEPENDS:=+LingTiGameAcc
+	DEPENDS:=+kmod-tun
 endef
 
 define Package/$(PKG_NAME)/description
@@ -35,6 +35,9 @@ endef
 define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/etc/config
 	$(INSTALL_CONF) ./root/etc/config/lingti $(1)/etc/config/lingti
+
+	$(INSTALL_DIR) $(1)/tmp/lingti
+	cp -pR ./root/files/* $(1)/tmp/lingti
 	
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./root/etc/init.d/lingti_luci $(1)/etc/init.d/lingti_luci
@@ -51,6 +54,11 @@ endef
 
 define Package/$(PKG_NAME)/postinst
 #!/bin/sh
+	mkdir -p ./usr/bin/lingti
+	chmod +x ./tmp/lingti/lingti.sh
+	sh ./tmp/lingti/lingti.sh
+	rm -rf ./tmp/lingti
+	chmod +x ./usr/bin/lingti/*
 	/etc/init.d/lingti_luci enable >/dev/null 2>&1
 	chmod a+x $${IPKG_INSTROOT}/etc/init.d/lingti_luci >/dev/null 2>&1
 exit 0
